@@ -1,18 +1,12 @@
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from dotenv import load_dotenv
-import os
 
-# Load biến môi trường từ .env
-load_dotenv()
+DATABASE_URL = "postgresql+asyncpg://user:password@host/dbname"
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-# Tạo engine async
 engine = create_async_engine(DATABASE_URL, echo=True)
-
-# Tạo session factory
-SessionLocal = sessionmaker(bind=engine, class_=AsyncSession, expire_on_commit=False)
-
-# Khai báo Base cho ORM
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, class_=AsyncSession)
 Base = declarative_base()
+
+async def init_db():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)

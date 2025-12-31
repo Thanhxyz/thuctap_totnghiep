@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from routes import projects, allocations, vesting
-from backend.database import engine, Base
+from backend.database import init_db
 
 app = FastAPI()
 
@@ -13,10 +13,7 @@ app.include_router(vesting.router, prefix="/api")
 def home():
     return {"message": "Welcome to Vesting API"}
 
-# Khởi tạo bảng database
-async def init_db():
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-
-import asyncio
-asyncio.run(init_db())
+# Khởi tạo database khi ứng dụng khởi động
+@app.on_event("startup")
+async def startup_event():
+    await init_db()  # Không dùng asyncio.run(init_db()) vì FastAPI đã có event loop riêng

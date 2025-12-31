@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import Optional
 
 class ProjectBase(BaseModel):
     name: str
@@ -11,7 +11,7 @@ class ProjectCreate(ProjectBase):
 class Project(ProjectBase):
     id: int
     class Config:
-        orm_mode = True
+        from_attributes = True  # Đổi từ orm_mode thành from_attributes
 
 class AllocationBase(BaseModel):
     project_id: int
@@ -23,7 +23,7 @@ class AllocationCreate(AllocationBase):
 class Allocation(AllocationBase):
     id: int
     class Config:
-        orm_mode = True
+        from_attributes = True  # Đổi từ orm_mode thành from_attributes
 
 class VestingScheduleBase(BaseModel):
     allocation_id: int
@@ -36,4 +36,4 @@ class VestingScheduleCreate(VestingScheduleBase):
 class VestingSchedule(VestingScheduleBase):
     id: int
     class Config:
-        orm_mode = True
+        from_attributes = True  # Đổi từ orm_mode thành from_attributes
