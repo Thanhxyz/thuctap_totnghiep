@@ -88,32 +88,51 @@ canvas {{
     text-shadow: 0 0 25px #ff9ad5;
 }}
 
+/* ================= PHOTOS ================= */
 .photo {{
     position: absolute;
-    width: 180px;
-    height: 180px;
-    border-radius: 24px;
+    width: 190px;
+    height: 190px;
+    border-radius: 26px;
     object-fit: cover;
+
+    /* Ánh sáng lóe rõ ràng */
     box-shadow:
-        0 0 40px rgba(255,170,220,0.9),
-        0 0 80px rgba(255,100,200,0.6);
-    animation: float 6s ease-in-out infinite, spin 18s linear infinite;
+        0 0 50px rgba(255,220,255,1),
+        0 0 100px rgba(255,170,255,0.9),
+        0 0 140px rgba(255,150,255,0.8);
+
+    animation:
+        angelFloat 8s ease-in-out infinite,
+        glowPulse 3s ease-in-out infinite;
 }}
 
-.p1 {{ left: 12%; bottom: 120px; animation-delay: 0s; }}
-.p2 {{ left: 42%; bottom: 80px; animation-delay: 2s; }}
-.p3 {{ left: 72%; bottom: 120px; animation-delay: 4s; }}
+.p1 {{ left: 12%; bottom: -240px; animation-delay: 0s; }}
+.p2 {{ left: 42%; bottom: -260px; animation-delay: 2s; }}
+.p3 {{ left: 72%; bottom: -240px; animation-delay: 4s; }}
 
-@keyframes float {{
-    0%,100% {{ transform: translateY(0); }}
-    50% {{ transform: translateY(-30px); }}
+@keyframes angelFloat {{
+    0% {{ transform: translateY(0) scale(1); }}
+    50% {{ transform: translateY(-380px) scale(1.05); }}
+    100% {{ transform: translateY(-620px) scale(1.1); }}
 }}
 
-@keyframes spin {{
-    from {{ transform: rotate(0deg); }}
-    to {{ transform: rotate(360deg); }}
+@keyframes glowPulse {{
+    0%,100% {{
+        box-shadow:
+            0 0 50px rgba(255,220,255,1),
+            0 0 100px rgba(255,170,255,0.9),
+            0 0 140px rgba(255,150,255,0.8);
+    }}
+    50% {{
+        box-shadow:
+            0 0 90px rgba(255,255,255,1),
+            0 0 180px rgba(255,200,255,1),
+            0 0 240px rgba(255,180,255,0.9);
+    }}
 }}
 
+/* ================= HEART FLOAT ================= */
 .heart {{
     position: absolute;
     width: 18px;
@@ -154,7 +173,7 @@ canvas {{
 
 <div class="wish">
 Chúc em một năm mới rực rỡ như pháo hoa,<br>
-hạnh phúc ngập tràn và luôn bên anh ❤️
+hạnh phúc ngập tràn và nhiều niềm vui ❤️
 </div>
 
 <img class="photo p1" src="data:image/png;base64,{img1}">
